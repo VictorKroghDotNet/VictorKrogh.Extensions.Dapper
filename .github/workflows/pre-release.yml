@@ -31,27 +31,23 @@ jobs:
       shell: pwsh
       run: "ls"
 
-    - name: test01
-      shell: pwsh
-      run: "ls VictorKrogh.Extensions.Dapper"
-
     - name: test1
       shell: pwsh
-      run: "ls /home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper"
+      run: "VictorKrogh.Extensions.Dapper"
       
     - name: test2
       shell: pwsh
-      run: "ls /home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper/bin"
+      run: "ls /VictorKrogh.Extensions.Dapper/bin"
 
     - name: test3
       shell: pwsh
-      run: "ls /home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper/bin/Release"
+      run: "ls VictorKrogh.Extensions.Dapper/bin/Release"
       
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: VictorKrogh.Extensions.Dapper
-        path: "bin/Release/**.nupkg"
+        path: "VictorKrogh.Extensions.Dapper/bin/Release/**.nupkg"
 
   publish:
     runs-on: ubuntu-latest
