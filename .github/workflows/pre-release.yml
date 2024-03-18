@@ -47,7 +47,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: VictorKrogh.Extensions.Dapper
-        path: "VictorKrogh.Extensions.Dapper/bin/Release/**.nupkg"
+        path: "VictorKrogh.Extensions.Dapper/bin/Release/*.nupkg"
 
   publish:
     runs-on: ubuntu-latest
@@ -75,4 +75,4 @@ jobs:
           automatic_release_tag: "pre-release"
           prerelease: true
           title: "Pre-release"
-          files: "nugetPackage/*"
+          files: "artifact/*"
