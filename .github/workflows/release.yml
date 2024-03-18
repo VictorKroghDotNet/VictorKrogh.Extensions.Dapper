@@ -1,4 +1,4 @@
-name: Build and publish pre-release
+name: Build and publish
 
 on:
   push:
