@@ -27,6 +27,10 @@ jobs:
     - name: Pack
       run: dotnet pack --configuration Release
       
+    - name: test0
+      shell: pwsh
+      run: "ls"
+
     - name: test1
       shell: pwsh
       run: "ls /home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper"
