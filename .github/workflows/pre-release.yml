@@ -26,6 +26,10 @@ jobs:
 
     - name: Pack
       run: dotnet pack --configuration Release
+
+    - name: test
+      shell: pwsh
+      run: "ls bin/Release"
       
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
