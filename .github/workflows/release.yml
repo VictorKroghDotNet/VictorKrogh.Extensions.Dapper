@@ -53,11 +53,9 @@ jobs:
         env:
           TOKEN: ${{ secrets.TOKEN }}
           
-      - name: Pre-Release
+      - name: Create Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.TOKEN }}"
-          automatic_release_tag: "pre-release"
-          prerelease: true
-          title: "Pre-release"
+          prerelease: false
           files: "artifact/*"
