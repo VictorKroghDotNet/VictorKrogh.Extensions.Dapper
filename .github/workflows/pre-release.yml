@@ -33,7 +33,7 @@ jobs:
 
     - name: test1
       shell: pwsh
-      run: "VictorKrogh.Extensions.Dapper"
+      run: "ls VictorKrogh.Extensions.Dapper"
       
     - name: test2
       shell: pwsh
@@ -64,7 +64,7 @@ jobs:
         run: dotnet nuget add source --username "VictorKroghDotNet" --password ${{ secrets.TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/VictorKroghDotNet/index.json"
 
       - name: Publish to Github Package Registry
-        run: dotnet nuget push "nugetPackage/*.nupkg" --source "github" --api-key ${TOKEN}
+        run: dotnet nuget push "artifact/*.nupkg" --source "github" --api-key ${TOKEN}
         env:
           TOKEN: ${{ secrets.TOKEN }}
           
