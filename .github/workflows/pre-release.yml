@@ -33,19 +33,30 @@ jobs:
         name: VictorKrogh.Extensions.Dapper
         path: "/home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper/release/"
 
-    - name: Prep packages
-      run: dotnet nuget add source --username "VictorKroghDotNet" --password ${{ secrets.TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/VictorKroghDotNet/index.json"
+  publish:
+    runs-on: ubuntu
+    needs: build
 
-    - name: Push
-      run: dotnet nuget push "/home/runner/work/VictorKrogh.Extensions.Dapper/release/VictorKrogh.Extensions.Dapper.1.0.0-dev-build.nupkg" --source "github" --api-key ${TOKEN}
-      env:
-        TOKEN: ${{ secrets.TOKEN }}
+    steps:
+      - name: Download NuGet Package Artifact
+        uses: actions/download-artifact@v3.0.2
+        with:
+          name: VictorKrogh.Extensions.Dapper
+          path: artifact
+  
+      - name: Prep packages
+        run: dotnet nuget add source --username "VictorKroghDotNet" --password ${{ secrets.TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/VictorKroghDotNet/index.json"
 
-    - name: AddOrUpdate release
-      uses: "marvinpinto/action-automatic-releases@latest"
-      with:
-        repo_token: "${{ secrets.TOKEN }}"
-        automatic_release_tag: "pre-release"
-        prerelease: true
-        title: "Pre-release"
-        files: "/home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper/release/"
+      - name: Publish to Github Package Registry
+        run: dotnet nuget push "nugetPackage/*.nupkg" --source "github" --api-key ${TOKEN}
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          
+      - name: Pre-Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.TOKEN }}"
+          automatic_release_tag: "pre-release"
+          prerelease: true
+          title: "Pre-release"
+          files: "nugetPackage/*"
