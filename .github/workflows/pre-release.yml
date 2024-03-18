@@ -34,7 +34,7 @@ jobs:
         path: "/home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper/pre-release/"
 
   publish:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     needs: build
 
     steps:
