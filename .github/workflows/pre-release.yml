@@ -26,10 +26,18 @@ jobs:
 
     - name: Pack
       run: dotnet pack --configuration Release
-
-    - name: test
+      
+    - name: test1
       shell: pwsh
-      run: "ls bin/Release"
+      run: "ls /home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper"
+      
+    - name: test2
+      shell: pwsh
+      run: "ls /home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper/bin"
+
+    - name: test3
+      shell: pwsh
+      run: "ls /home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper/bin/Release"
       
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
