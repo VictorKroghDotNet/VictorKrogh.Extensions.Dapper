@@ -17,6 +17,10 @@
 		<PackageVersion>8.0.$(BuildNumber)</PackageVersion>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<PackageProjectUrl>https://github.com/VictorKroghDotNet/VictorKrogh.Extensions.Dapper</PackageProjectUrl>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Dapper" Version="2.1.35" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
