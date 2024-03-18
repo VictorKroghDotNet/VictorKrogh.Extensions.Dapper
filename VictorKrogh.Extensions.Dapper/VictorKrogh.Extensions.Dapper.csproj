@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<BuildNumber Condition="'$(BuildNumber)' == ''">0</BuildNumber>
 		<PackageVersion>8.0.$(BuildNumber)-dev-build</PackageVersion>
 	</PropertyGroup>
 
