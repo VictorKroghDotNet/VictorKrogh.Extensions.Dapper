@@ -25,13 +25,13 @@ jobs:
       run: dotnet build --no-restore
 
     - name: Pack
-      run: dotnet pack --configuration Release --output Debug
+      run: dotnet pack --configuration Release --output "pre-release"
       
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: VictorKrogh.Extensions.Dapper
-        path: "/home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper/release/"
+        path: "/home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper/pre-release/"
 
   publish:
     runs-on: ubuntu
