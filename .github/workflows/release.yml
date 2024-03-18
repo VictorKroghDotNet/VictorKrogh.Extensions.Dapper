@@ -57,5 +57,6 @@ jobs:
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.TOKEN }}"
+          automatic_release_tag: "8.0.${{ github.run_number }}"
           prerelease: false
           files: "artifact/*"
