@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env: 
-  configuration: Debug
+  configuration: Release
 
 jobs:
   build:
