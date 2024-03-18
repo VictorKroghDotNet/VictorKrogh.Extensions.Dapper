@@ -17,17 +17,16 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.1xx
+      
+    - name: Another step
+      run: |
+        echo "Run number: ${{ github.run_number }}"
   
     - name: Restore dependencies
       run: dotnet restore
 
     - name: Build
       run: dotnet build --no-restore
-      
-    - name: Another step
-      run: |
-        echo "Branch: ${{ env.branch }}"
-        echo "Sha: ${{ env.sha_short }}"
 
     - name: Pack
       run: dotnet pack --configuration Release -p:BuildNumber="${{ github.run_number }}"
