@@ -4,6 +4,9 @@ on:
   push:
     branches: [ main ]
 
+env: 
+  configuration: Debug
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,26 +20,19 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.1xx
-  
-    - name: Restore dependencies
-      run: dotnet restore
-
-    - name: Build
-      run: dotnet build --no-restore
       
     - name: Another step
       run: |
-        echo "Branch: ${{ env.branch }}"
-        echo "Sha: ${{ env.sha_short }}"
+        echo "Run number: ${{ github.run_number }}"
 
     - name: Pack
-      run: dotnet pack --configuration Release -p:BuildNumber="${{ github.run_number }}"
+      run: dotnet pack --configuration ${{ env.Configuration }} -p:BuildNumber="${{ github.run_number }}"
       
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: VictorKrogh.Extensions.Dapper
-        path: "VictorKrogh.Extensions.Dapper/bin/Release/*.nupkg"
+        path: "VictorKrogh.Extensions.Dapper/bin/${{ env.Configuration }}/*.nupkg"
 
   publish:
     runs-on: ubuntu-latest
