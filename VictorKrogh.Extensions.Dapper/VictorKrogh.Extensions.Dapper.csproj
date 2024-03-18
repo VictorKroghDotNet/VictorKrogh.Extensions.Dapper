@@ -12,9 +12,14 @@
 		<PackageVersion>8.0.$(BuildNumber)-dev-build</PackageVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<BuildNumber Condition="'$(BuildNumber)' == ''">0</BuildNumber>
+		<PackageVersion>8.0.$(BuildNumber)</PackageVersion>
+	</PropertyGroup>
+
 	<ItemGroup>
-	  <PackageReference Include="Dapper" Version="2.1.35" />
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+		<PackageReference Include="Dapper" Version="2.1.35" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
 	</ItemGroup>
 
 </Project>
