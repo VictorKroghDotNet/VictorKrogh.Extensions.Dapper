@@ -25,24 +25,54 @@ jobs:
       run: dotnet build --no-restore
 
     - name: Pack
-      run: dotnet pack --configuration Release --output Debug
+      run: dotnet pack --configuration Release
+      
+    - name: test0
+      shell: pwsh
+      run: "ls"
+
+    - name: test1
+      shell: pwsh
+      run: "ls VictorKrogh.Extensions.Dapper"
+      
+    - name: test2
+      shell: pwsh
+      run: "ls VictorKrogh.Extensions.Dapper/bin"
+
+    - name: test3
+      shell: pwsh
+      run: "ls VictorKrogh.Extensions.Dapper/bin/Release"
       
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: VictorKrogh.Extensions.Dapper
-        path: "/home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper/release/"
+        path: "VictorKrogh.Extensions.Dapper/bin/Release/*.nupkg"
 
-    - name: Push
-      run: dotnet nuget push NuGet.Workflow.${VERSION}.nupkg --source https://nuget.pkg.github.com/acraven/index.json --api-key ${GITHUB_TOKEN}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
 
-    - name: AddOrUpdate release
-      uses: "marvinpinto/action-automatic-releases@latest"
-      with:
-        repo_token: "${{ secrets.TOKEN }}"
-        automatic_release_tag: "pre-release"
-        prerelease: true
-        title: "Pre-release"
-        files: "/home/runner/work/VictorKrogh.Extensions.Dapper/VictorKrogh.Extensions.Dapper/release/"
+    steps:
+      - name: Download NuGet Package Artifact
+        uses: actions/download-artifact@v3.0.2
+        with:
+          name: VictorKrogh.Extensions.Dapper
+          path: artifact
+  
+      - name: Prep packages
+        run: dotnet nuget add source --username "VictorKroghDotNet" --password ${{ secrets.TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/VictorKroghDotNet/index.json"
+
+      - name: Publish to Github Package Registry
+        run: dotnet nuget push "artifact/*.nupkg" --source "github" --api-key ${TOKEN} --skip-duplicate
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          
+      - name: Pre-Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.TOKEN }}"
+          automatic_release_tag: "pre-release"
+          prerelease: true
+          title: "Pre-release"
+          files: "artifact/*"
