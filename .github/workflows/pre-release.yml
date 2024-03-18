@@ -4,6 +4,9 @@ on:
   push:
     branches: [ main ]
 
+env: 
+  configuration: Debug
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,13 +26,13 @@ jobs:
         echo "Run number: ${{ github.run_number }}"
 
     - name: Pack
-      run: dotnet pack --configuration Debug -p:BuildNumber="${{ github.run_number }}"
+      run: dotnet pack --configuration $configuration -p:BuildNumber="${{ github.run_number }}"
       
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: VictorKrogh.Extensions.Dapper
-        path: "VictorKrogh.Extensions.Dapper/bin/Release/*.nupkg"
+        path: VictorKrogh.Extensions.Dapper/bin/$configuration/*.nupkg
 
   publish:
     runs-on: ubuntu-latest
