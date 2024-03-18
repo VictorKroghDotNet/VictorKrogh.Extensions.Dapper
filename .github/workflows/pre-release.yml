@@ -37,7 +37,7 @@ jobs:
       
     - name: test2
       shell: pwsh
-      run: "ls /VictorKrogh.Extensions.Dapper/bin"
+      run: "ls VictorKrogh.Extensions.Dapper/bin"
 
     - name: test3
       shell: pwsh
