@@ -23,25 +23,14 @@ jobs:
 
     - name: Build
       run: dotnet build --no-restore
+      
+    - name: Another step
+      run: |
+        echo "Branch: ${{ env.branch }}"
+        echo "Sha: ${{ env.sha_short }}"
 
     - name: Pack
-      run: dotnet pack --configuration Release
-      
-    - name: test0
-      shell: pwsh
-      run: "ls"
-
-    - name: test1
-      shell: pwsh
-      run: "ls VictorKrogh.Extensions.Dapper"
-      
-    - name: test2
-      shell: pwsh
-      run: "ls VictorKrogh.Extensions.Dapper/bin"
-
-    - name: test3
-      shell: pwsh
-      run: "ls VictorKrogh.Extensions.Dapper/bin/Release"
+      run: dotnet pack --configuration Release -p:BuildNumber="${{ github.run_number }}"
       
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
