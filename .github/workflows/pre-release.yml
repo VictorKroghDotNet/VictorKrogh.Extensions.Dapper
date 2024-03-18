@@ -37,7 +37,7 @@ jobs:
       run: dotnet nuget add source --username "VictorKroghDotNet" --password ${{ secrets.TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/VictorKroghDotNet/index.json"
 
     - name: Push
-      run: dotnet nuget push "../release/VictorKrogh.Extensions.Dapper.1.0.0-dev-build.nupkg" --source "github" --api-key ${TOKEN}
+      run: dotnet nuget push "/home/runner/work/VictorKrogh.Extensions.Dapper/release/VictorKrogh.Extensions.Dapper.1.0.0-dev-build.nupkg" --source "github" --api-key ${TOKEN}
       env:
         TOKEN: ${{ secrets.TOKEN }}
 
