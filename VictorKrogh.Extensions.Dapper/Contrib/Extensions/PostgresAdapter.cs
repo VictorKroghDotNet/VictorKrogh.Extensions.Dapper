@@ -80,7 +80,12 @@ namespace Dapper.Contrib.Extensions
 
         public override string GetQualifiedTableName(string schemaName, string tableName)
         {
-            return $"\"{tableName}\"";
+            if (string.IsNullOrWhiteSpace(schemaName))
+            {
+                return $"\"{tableName}\"";
+            }
+
+            return $"\"{schemaName}\".\"{tableName}\"";
         }
     }
 }
