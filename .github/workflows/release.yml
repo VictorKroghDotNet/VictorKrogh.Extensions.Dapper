@@ -1,4 +1,4 @@
-name: Build and publish pre-release
+name: Build and publish
 
 on:
   push:
@@ -53,11 +53,10 @@ jobs:
         env:
           TOKEN: ${{ secrets.TOKEN }}
           
-      - name: Pre-Release
+      - name: Create Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.TOKEN }}"
-          automatic_release_tag: "pre-release"
-          prerelease: true
-          title: "Pre-release"
+          automatic_release_tag: "8.0.${{ github.run_number }}"
+          prerelease: false
           files: "artifact/*"
